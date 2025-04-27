@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate DSA Mastery Sheet - 2026 Batch</title>
+    <style>
+        /* --- CSS Reset & Base --- */
+        :root {
+            --bg-color: #121212;
+            --primary-surface: #1e1e1e;
+            --secondary-surface: #2a2a2a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-primary: #00e676; /* Bright Green */
+            --accent-secondary: #2979ff; /* Bright Blue */
+            --accent-hard: #ff1744; /* Red for Hard/Ninja */
+            --accent-medium: #ff9100; /* Orange for Medium */
+            --accent-easy: #00e676; /* Green for Easy */
+            --accent-ninja: #d500f9; /* Purple for Ninja */
+            --border-color: #3a3a3a;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-code: 'Courier New', Courier, monospace;
+            --shadow-color: rgba(0, 230, 118, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px; /* Account for fixed header */
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-surface);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        nav ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active { /* Active class will be added by JS if desired */
+            background-color: var(--accent-secondary);
+            color: white;
+        }
+
+        /* --- Vision Section --- */
+        .vision-section {
+            background-color: var(--primary-surface);
+            padding: 40px 5%;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .vision-section h1 {
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+
+        .vision-section p {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Controls Section --- */
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 5%;
+            background-color: var(--secondary-surface);
+            max-width: 1200px;
+            margin: 20px auto;
+            border-radius: 8px;
+            flex-wrap: wrap; /* Allow wrapping */
+        }
+
+        .controls input[type="search"],
+        .controls select {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background-color: var(--primary-surface);
+            color: var(--text-primary);
+            font-size: 1em;
+            min-width: 250px; /* Ensure decent width */
+        }
+
+        .controls input[type="search"]:focus,
+        .controls select:focus {
+            outline: none;
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 5px rgba(41, 121, 255, 0.5);
+        }
+
+        /* --- Problem List --- */
+        #problem-list {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 5%;
+        }
+
+        .topic-section {
+            background-color: var(--primary-surface);
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: opacity 0.3s ease-in-out; /* For filtering animation */
+        }
+
+        .topic-section h2 {
+            color: var(--accent-primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-primary);
+            padding-bottom: 10px;
+            font-size: 1.6em;
+        }
+
+        .difficulty-group {
+            margin-bottom: 25px;
+            padding-left: 10px; /* Indent difficulty groups */
+            border-left: 3px solid var(--border-color);
+            transition: opacity 0.3s ease-in-out; /* For filtering animation */
+        }
+
+        .difficulty-group h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            position: relative; /* For pseudo-element */
+            padding-left: 15px; /* Space for icon */
+        }
+
+        /* Difficulty Icons/Colors */
+        .difficulty-group.easy h3 { color: var(--accent-easy); border-left-color: var(--accent-easy); }
+        .difficulty-group.medium h3 { color: var(--accent-medium); border-left-color: var(--accent-medium); }
+        .difficulty-group.hard h3 { color: var(--accent-hard); border-left-color: var(--accent-hard); }
+        .difficulty-group.ninja h3 { color: var(--accent-ninja); border-left-color: var(--accent-ninja); }
+
+        .difficulty-group h3::before {
+            content: ''; /* Could add icons here */
+            position: absolute;
+            left: -6.5px; /* Adjust alignment for 3px border */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--border-color); /* Default dot color */
+        }
+        .difficulty-group.easy h3::before { background-color: var(--accent-easy); }
+        .difficulty-group.medium h3::before { background-color: var(--accent-medium); }
+        .difficulty-group.hard h3::before { background-color: var(--accent-hard); }
+        .difficulty-group.ninja h3::before { background-color: var(--accent-ninja); }
+
+        .problem-list ol {
+            list-style: none; /* Use custom counter */
+            counter-reset: problem-counter;
+            padding-left: 0;
+        }
+
+        .problem-list li {
+            background-color: var(--secondary-surface);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex; /* Use flex for better alignment */
+            justify-content: space-between;
+            align-items: center;
+            /* counter-increment: problem-counter; We'll use start attribute on OL */
+            border: 1px solid transparent; /* For transition */
+            transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.3s ease-in-out; /* For filtering animation */
+            opacity: 1; /* Default opacity */
+        }
+
+        .problem-list li:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-secondary);
+        }
+
+        .problem-number {
+            font-weight: bold;
+            color: var(--accent-primary);
+            margin-right: 15px;
+            min-width: 35px; /* Ensure alignment */
+            text-align: right;
+        }
+
+        .problem-name {
+            flex-grow: 1; /* Allow name to take available space */
+            margin-right: 15px; /* Space before link */
+            color: var(--text-primary);
+        }
+
+        .problem-link a {
+            display: inline-block;
+            background-color: var(--accent-secondary);
+            color: white;
+            padding: 5px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Prevent link text wrapping */
+        }
+
+        .problem-link a:hover {
+            background-color: #005cb2; /* Darker blue */
+        }
+
+        /* Hidden State for Filtering */
+        .hidden {
+             /* Use opacity and height for smoother transitions if possible */
+            opacity: 0;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+            border-width: 0;
+            transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, padding 0.3s ease-in-out, margin 0.3s ease-in-out, border-width 0.3s ease-in-out;
+        }
+        .group-hidden { /* Used for hiding group headers */
+             display: none !important;
+        }
+         .topic-hidden { /* Used for hiding topic sections */
+             display: none !important;
+        }
+
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 5%;
+            }
+            nav ul {
+                margin-top: 10px;
+                justify-content: flex-start;
+                gap: 5px; /* Reduce gap */
+            }
+             nav ul li a {
+                 padding: 6px 8px; /* Smaller padding */
+                 font-size: 0.8em;
+             }
+            body {
+                padding-top: 120px; /* Adjust for potentially taller header */
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch; /* Make controls full width */
+            }
+            .controls input[type="search"],
+            .controls select {
+                min-width: auto; /* Remove min-width */
+                width: 100%; /* Make full width */
+            }
+            .problem-list li {
+                /* Keep flex row, but allow wrapping if needed */
+                 flex-wrap: wrap;
+            }
+            .problem-name {
+                margin-bottom: 10px; /* Space below name if wraps */
+                margin-right: 0; /* Remove right margin */
+                width: 100%; /* Allow name to take full width if link wraps */
+                order: 2; /* Put name below number */
+            }
+             .problem-number {
+                 order: 1; /* Keep number first */
+                 margin-right: 0;
+                 margin-bottom: 5px; /* Add space below number */
+             }
+            .problem-link {
+                 order: 3; /* Put link last */
+                 margin-left: auto; /* Push link to the right */
+                 margin-top: 5px; /* Add margin if name was long */
+            }
+        }
+        @media (max-width: 480px) {
+             .logo { font-size: 1.5em; }
+             .vision-section h1 { font-size: 1.8em; }
+             .vision-section p { font-size: 1em; }
+             .topic-section h2 { font-size: 1.4em; }
+             .difficulty-group h3 { font-size: 1.2em; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">DSA Mastery 2026</a>
+        <nav>
+            <ul>
+                <li><a href="#topic-arrays">Arrays</a></li>
+                <li><a href="#topic-hashing">Hashing</a></li>
+                <li><a href="#topic-linkedlist">LinkedList</a></li>
+                <li><a href="#topic-stackqueue">Stack/Queue</a></li>
+                <li><a href="#topic-recursion">Recursion</a></li>
+                <li><a href="#topic-trees">Trees</a></li>
+                <li><a href="#topic-heaps">Heaps</a></li>
+                <li><a href="#topic-greedy">Greedy</a></li>
+                <li><a href="#topic-dp">DP</a></li>
+                <li><a href="#topic-graphs">Graphs</a></li>
+                <li><a href="#topic-bit">Bit</a></li>
+                <li><a href="#topic-advanced">Advanced</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="vision-section">
+        <h1>Your Placement Journey Starts Now!</h1>
+        <p>To the driven 2026 CSE Batch: This curated list of 299 DSA problems is your roadmap to mastering the core concepts needed for top placements. Consistency, understanding, and practice are your keys. Solve these, grasp the patterns, and you'll be ready to tackle any coding challenge. Let's conquer DSA together!</p>
+    </section>
+
+    <section class="controls">
+        <input type="search" id="search-input" placeholder="Search problems by name...">
+        <select id="difficulty-filter">
+            <option value="all">All Difficulties</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+            <option value="ninja">Ninja</option>
+        </select>
+    </section>
+
+    <main id="problem-list">
+
+        <!-- ============================================================ -->
+        <!--                  Arrays & Strings (55 Problems)              -->
+        <!-- ============================================================ -->
+        <section id="topic-arrays" class="topic-section" data-topic="Arrays & Strings">
+            <h2>Arrays & Strings (55 Problems)</h2>
+
+            <!-- Easy (15) -->
+            <div class="difficulty-group easy" data-difficulty="easy">
+                <h3>Easy (15)</h3>
+                <ol class="problem-list" start="1">
+                    <li data-name="Find Max/Min Element">
+                        <span class="problem-number">1.</span><span class="problem-name">Find Max/Min Element</span>
+                        <span class="problem-link"><a href="https://www.geeksforgeeks.org/maximum-and-minimum-in-an-array/" target="_blank" rel="noopener noreferrer">GFG</a></span>
+                    </li>
+                    <li data-name="Reverse an Array/String">
+                        <span class="problem-number">2.</span><span class="problem-name">Reverse an Array/String</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener noreferrer">LC 344</a></span>
+                    </li>
+                    <li data-name="Check Palindrome String">
+                        <span class="problem-number">3.</span><span class="problem-name">Check Palindrome String</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank" rel="noopener noreferrer">LC 125</a></span>
+                    </li>
+                    <li data-name="Find Duplicate Number Basic">
+                        <span class="problem-number">4.</span><span class="problem-name">Find Duplicate Number (Basic - 1 to N in N+1 size)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener noreferrer">LC 287</a></span>
+                    </li>
+                    <li data-name="Check Anagrams">
+                        <span class="problem-number">5.</span><span class="problem-name">Check Anagrams</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/valid-anagram/" target="_blank" rel="noopener noreferrer">LC 242</a></span>
+                    </li>
+                    <li data-name="Remove Duplicates from Sorted Array">
+                        <span class="problem-number">6.</span><span class="problem-name">Remove Duplicates from Sorted Array</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/" target="_blank" rel="noopener noreferrer">LC 26</a></span>
+                    </li>
+                    <li data-name="Search Insert Position">
+                        <span class="problem-number">7.</span><span class="problem-name">Search Insert Position</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/search-insert-position/" target="_blank" rel="noopener noreferrer">LC 35</a></span>
+                    </li>
+                    <li data-name="Plus One">
+                        <span class="problem-number">8.</span><span class="problem-name">Plus One</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/plus-one/" target="_blank" rel="noopener noreferrer">LC 66</a></span>
+                    </li>
+                    <li data-name="Move Zeroes">
+                        <span class="problem-number">9.</span><span class="problem-name">Move Zeroes</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/move-zeroes/" target="_blank" rel="noopener noreferrer">LC 283</a></span>
+                    </li>
+                    <li data-name="Two Sum Basic">
+                        <span class="problem-number">10.</span><span class="problem-name">Two Sum (Basic)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener noreferrer">LC 1</a></span>
+                    </li>
+                    <li data-name="Majority Element Basic">
+                        <span class="problem-number">11.</span><span class="problem-name">Majority Element (Basic - > n/2)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/majority-element/" target="_blank" rel="noopener noreferrer">LC 169</a></span>
+                    </li>
+                    <li data-name="Rotate Array">
+                        <span class="problem-number">12.</span><span class="problem-name">Rotate Array</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/rotate-array/" target="_blank" rel="noopener noreferrer">LC 189</a></span>
+                    </li>
+                    <li data-name="Contains Duplicate">
+                        <span class="problem-number">13.</span><span class="problem-name">Contains Duplicate</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/contains-duplicate/" target="_blank" rel="noopener noreferrer">LC 217</a></span>
+                    </li>
+                    <li data-name="Valid Parentheses String">
+                        <span class="problem-number">14.</span><span class="problem-name">Valid Parentheses (String)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="noopener noreferrer">LC 20</a></span>
+                    </li>
+                    <li data-name="Longest Common Prefix">
+                        <span class="problem-number">15.</span><span class="problem-name">Longest Common Prefix</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-common-prefix/" target="_blank" rel="noopener noreferrer">LC 14</a></span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Medium (25) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                <h3>Medium (25)</h3>
+                <ol class="problem-list" start="16">
+                     <li data-name="Sort Colors 0s 1s 2s">
+                        <span class="problem-number">16.</span><span class="problem-name">Sort Colors (0s, 1s, 2s)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sort-colors/" target="_blank" rel="noopener noreferrer">LC 75</a></span>
+                    </li>
+                     <li data-name="Kadane's Algorithm Max Subarray Sum">
+                        <span class="problem-number">17.</span><span class="problem-name">Kadane's Algorithm (Max Subarray Sum)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" rel="noopener noreferrer">LC 53</a></span>
+                    </li>
+                    <li data-name="Merge Intervals">
+                        <span class="problem-number">18.</span><span class="problem-name">Merge Intervals</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/merge-intervals/" target="_blank" rel="noopener noreferrer">LC 56</a></span>
+                    </li>
+                     <li data-name="Next Permutation">
+                        <span class="problem-number">19.</span><span class="problem-name">Next Permutation</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/next-permutation/" target="_blank" rel="noopener noreferrer">LC 31</a></span>
+                    </li>
+                    <li data-name="Search in Rotated Sorted Array">
+                         <span class="problem-number">20.</span><span class="problem-name">Search in Rotated Sorted Array</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener noreferrer">LC 33</a></span>
+                     </li>
+                     <li data-name="Spiral Matrix Traversal">
+                        <span class="problem-number">21.</span><span class="problem-name">Spiral Matrix Traversal</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/spiral-matrix/" target="_blank" rel="noopener noreferrer">LC 54</a></span>
+                    </li>
+                    <li data-name="Set Matrix Zeroes">
+                        <span class="problem-number">22.</span><span class="problem-name">Set Matrix Zeroes</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/set-matrix-zeroes/" target="_blank" rel="noopener noreferrer">LC 73</a></span>
+                    </li>
+                    <li data-name="Product of Array Except Self">
+                        <span class="problem-number">23.</span><span class="problem-name">Product of Array Except Self</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/product-of-array-except-self/" target="_blank" rel="noopener noreferrer">LC 238</a></span>
+                    </li>
+                     <li data-name="3Sum">
+                        <span class="problem-number">24.</span><span class="problem-name">3Sum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/3sum/" target="_blank" rel="noopener noreferrer">LC 15</a></span>
+                    </li>
+                     <li data-name="Container With Most Water">
+                        <span class="problem-number">25.</span><span class="problem-name">Container With Most Water</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/container-with-most-water/" target="_blank" rel="noopener noreferrer">LC 11</a></span>
+                    </li>
+                     <li data-name="Jump Game">
+                        <span class="problem-number">26.</span><span class="problem-name">Jump Game</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/jump-game/" target="_blank" rel="noopener noreferrer">LC 55</a></span>
+                    </li>
+                    <li data-name="Find Minimum in Rotated Sorted Array">
+                         <span class="problem-number">27.</span><span class="problem-name">Find Minimum in Rotated Sorted Array</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" rel="noopener noreferrer">LC 153</a></span>
+                    </li>
+                     <li data-name="Group Anagrams">
+                         <span class="problem-number">28.</span><span class="problem-name">Group Anagrams</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/group-anagrams/" target="_blank" rel="noopener noreferrer">LC 49</a></span>
+                     </li>
+                    <li data-name="Longest Substring Without Repeating Characters">
+                        <span class="problem-number">29.</span><span class="problem-name">Longest Substring Without Repeating Characters</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener noreferrer">LC 3</a></span>
+                    </li>
+                     <li data-name="Subarray Sum Equals K">
+                        <span class="problem-number">30.</span><span class="problem-name">Subarray Sum Equals K</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/subarray-sum-equals-k/" target="_blank" rel="noopener noreferrer">LC 560</a></span>
+                    </li>
+                    <li data-name="Rotate Image Matrix">
+                        <span class="problem-number">31.</span><span class="problem-name">Rotate Image (Matrix)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener noreferrer">LC 48</a></span>
+                    </li>
+                     <li data-name="Find All Duplicates in an Array">
+                        <span class="problem-number">32.</span><span class="problem-name">Find All Duplicates in an Array</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-all-duplicates-in-an-array/" target="_blank" rel="noopener noreferrer">LC 442</a></span>
+                    </li>
+                    <li data-name="Valid Sudoku">
+                        <span class="problem-number">33.</span><span class="problem-name">Valid Sudoku</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/valid-sudoku/" target="_blank" rel="noopener noreferrer">LC 36</a></span>
+                    </li>
+                    <li data-name="Integer to Roman Roman to Integer">
+                        <span class="problem-number">34.</span><span class="problem-name">Integer to Roman / Roman to Integer</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/integer-to-roman/" target="_blank" rel="noopener noreferrer">LC 12/13</a></span>
+                    </li>
+                    <li data-name="Basic Calculator II String">
+                        <span class="problem-number">35.</span><span class="problem-name">Basic Calculator II (String)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/basic-calculator-ii/" target="_blank" rel="noopener noreferrer">LC 227</a></span>
+                    </li>
+                    <li data-name="Find the Duplicate Number Cycle Detection">
+                         <span class="problem-number">36.</span><span class="problem-name">Find the Duplicate Number (Cycle Detection)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener noreferrer">LC 287</a></span>
+                    </li>
+                     <li data-name="Gas Station">
+                        <span class="problem-number">37.</span><span class="problem-name">Gas Station</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/gas-station/" target="_blank" rel="noopener noreferrer">LC 134</a></span>
+                    </li>
+                     <li data-name="Largest Number">
+                        <span class="problem-number">38.</span><span class="problem-name">Largest Number</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/largest-number/" target="_blank" rel="noopener noreferrer">LC 179</a></span>
+                    </li>
+                    <li data-name="Maximum Product Subarray">
+                        <span class="problem-number">39.</span><span class="problem-name">Maximum Product Subarray</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank" rel="noopener noreferrer">LC 152</a></span>
+                    </li>
+                    <li data-name="Word Search Matrix">
+                        <span class="problem-number">40.</span><span class="problem-name">Word Search (Matrix)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-search/" target="_blank" rel="noopener noreferrer">LC 79</a></span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Hard (10) -->
+            <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (10)</h3>
+                 <ol class="problem-list" start="41">
+                     <li data-name="Trapping Rain Water">
+                        <span class="problem-number">41.</span><span class="problem-name">Trapping Rain Water</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener noreferrer">LC 42</a></span>
+                    </li>
+                    <li data-name="Merge K Sorted Arrays">
+                         <span class="problem-number">42.</span><span class="problem-name">Merge K Sorted Arrays</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problemset/all/?search=Merge%20K%20Sorted%20Arrays" target="_blank" rel="noopener noreferrer">Search</a></span> <!-- LC 23 is lists -->
+                    </li>
+                     <li data-name="Median of Two Sorted Arrays">
+                        <span class="problem-number">43.</span><span class="problem-name">Median of Two Sorted Arrays</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener noreferrer">LC 4</a></span>
+                    </li>
+                    <li data-name="First Missing Positive">
+                        <span class="problem-number">44.</span><span class="problem-name">First Missing Positive</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/first-missing-positive/" target="_blank" rel="noopener noreferrer">LC 41</a></span>
+                    </li>
+                    <li data-name="Largest Rectangle in Histogram">
+                        <span class="problem-number">45.</span><span class="problem-name">Largest Rectangle in Histogram</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener noreferrer">LC 84</a></span>
+                    </li>
+                    <li data-name="Sliding Window Maximum">
+                        <span class="problem-number">46.</span><span class="problem-name">Sliding Window Maximum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sliding-window-maximum/" target="_blank" rel="noopener noreferrer">LC 239</a></span>
+                    </li>
+                    <li data-name="Regular Expression Matching">
+                        <span class="problem-number">47.</span><span class="problem-name">Regular Expression Matching</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/regular-expression-matching/" target="_blank" rel="noopener noreferrer">LC 10</a></span>
+                    </li>
+                    <li data-name="Minimum Window Substring">
+                        <span class="problem-number">48.</span><span class="problem-name">Minimum Window Substring</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank" rel="noopener noreferrer">LC 76</a></span>
+                    </li>
+                     <li data-name="Best Time to Buy and Sell Stock III IV">
+                        <span class="problem-number">49.</span><span class="problem-name">Best Time to Buy and Sell Stock III/IV</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener noreferrer">LC 123/188</a></span>
+                    </li>
+                    <li data-name="Candy Distribution">
+                         <span class="problem-number">50.</span><span class="problem-name">Candy (Distribution)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/candy/" target="_blank" rel="noopener noreferrer">LC 135</a></span>
+                    </li>
+                 </ol>
+            </div>
+
+            <!-- Ninja (5) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (5)</h3>
+                 <ol class="problem-list" start="51">
+                     <li data-name="Max Value of Equation Sliding Window Deque">
+                        <span class="problem-number">51.</span><span class="problem-name">Max Value of Equation</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/max-value-of-equation/" target="_blank" rel="noopener noreferrer">LC 1499</a></span>
+                    </li>
+                     <li data-name="Patching Array">
+                        <span class="problem-number">52.</span><span class="problem-name">Patching Array</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/patching-array/" target="_blank" rel="noopener noreferrer">LC 330</a></span>
+                    </li>
+                    <li data-name="Substring with Concatenation of All Words">
+                        <span class="problem-number">53.</span><span class="problem-name">Substring with Concatenation of All Words</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/" target="_blank" rel="noopener noreferrer">LC 30</a></span>
+                    </li>
+                    <li data-name="Count of Smaller Numbers After Self Merge Sort BIT">
+                        <span class="problem-number">54.</span><span class="problem-name">Count of Smaller Numbers After Self</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/count-of-smaller-numbers-after-self/" target="_blank" rel="noopener noreferrer">LC 315</a></span>
+                    </li>
+                    <li data-name="Wildcard Matching">
+                        <span class="problem-number">55.</span><span class="problem-name">Wildcard Matching</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/wildcard-matching/" target="_blank" rel="noopener noreferrer">LC 44</a></span>
+                    </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--                      Hashing (15 Problems)                   -->
+        <!-- ============================================================ -->
+        <section id="topic-hashing" class="topic-section" data-topic="Hashing">
+             <h2>Hashing (15 Problems)</h2>
+             <!-- Easy (5) -->
+            <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (5)</h3>
+                 <ol class="problem-list" start="56">
+                     <li data-name="Two Sum Hashing">
+                         <span class="problem-number">56.</span><span class="problem-name">Two Sum (Hashing)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener noreferrer">LC 1</a></span>
+                     </li>
+                     <li data-name="Contains Duplicate Hashing">
+                         <span class="problem-number">57.</span><span class="problem-name">Contains Duplicate (Hashing)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/contains-duplicate/" target="_blank" rel="noopener noreferrer">LC 217</a></span>
+                     </li>
+                     <li data-name="Valid Anagram Hashing">
+                         <span class="problem-number">58.</span><span class="problem-name">Valid Anagram (Hashing)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/valid-anagram/" target="_blank" rel="noopener noreferrer">LC 242</a></span>
+                     </li>
+                     <li data-name="Intersection of Two Arrays">
+                         <span class="problem-number">59.</span><span class="problem-name">Intersection of Two Arrays</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener noreferrer">LC 349</a></span>
+                     </li>
+                     <li data-name="Find the Difference Strings">
+                         <span class="problem-number">60.</span><span class="problem-name">Find the Difference (Strings)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/find-the-difference/" target="_blank" rel="noopener noreferrer">LC 389</a></span>
+                     </li>
+                 </ol>
+             </div>
+             <!-- Medium (7) -->
+            <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (7)</h3>
+                 <ol class="problem-list" start="61">
+                     <li data-name="Group Anagrams Hashing">
+                         <span class="problem-number">61.</span><span class="problem-name">Group Anagrams (Hashing)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/group-anagrams/" target="_blank" rel="noopener noreferrer">LC 49</a></span>
+                     </li>
+                     <li data-name="Subarray Sum Equals K Hashing">
+                         <span class="problem-number">62.</span><span class="problem-name">Subarray Sum Equals K (Hashing)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/subarray-sum-equals-k/" target="_blank" rel="noopener noreferrer">LC 560</a></span>
+                     </li>
+                     <li data-name="Longest Consecutive Sequence">
+                         <span class="problem-number">63.</span><span class="problem-name">Longest Consecutive Sequence</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/longest-consecutive-sequence/" target="_blank" rel="noopener noreferrer">LC 128</a></span>
+                     </li>
+                     <li data-name="4Sum II">
+                         <span class="problem-number">64.</span><span class="problem-name">4Sum II</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/4sum-ii/" target="_blank" rel="noopener noreferrer">LC 454</a></span>
+                     </li>
+                     <li data-name="Insert Delete GetRandom O(1)">
+                         <span class="problem-number">65.</span><span class="problem-name">Insert Delete GetRandom O(1)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank" rel="noopener noreferrer">LC 380</a></span>
+                     </li>
+                     <li data-name="Top K Frequent Elements">
+                         <span class="problem-number">66.</span><span class="problem-name">Top K Frequent Elements</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener noreferrer">LC 347</a></span>
+                     </li>
+                     <li data-name="Brick Wall">
+                         <span class="problem-number">67.</span><span class="problem-name">Brick Wall</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/brick-wall/" target="_blank" rel="noopener noreferrer">LC 554</a></span>
+                     </li>
+                 </ol>
+             </div>
+             <!-- Hard (2) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (2)</h3>
+                 <ol class="problem-list" start="68">
+                     <li data-name="Design Twitter">
+                         <span class="problem-number">68.</span><span class="problem-name">Design Twitter</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/design-twitter/" target="_blank" rel="noopener noreferrer">LC 355</a></span>
+                     </li>
+                     <li data-name="LRU Cache">
+                         <span class="problem-number">69.</span><span class="problem-name">LRU Cache</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener noreferrer">LC 146</a></span>
+                     </li>
+                 </ol>
+             </div>
+              <!-- Ninja (1) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (1)</h3>
+                 <ol class="problem-list" start="70">
+                     <li data-name="LFU Cache">
+                         <span class="problem-number">70.</span><span class="problem-name">LFU Cache</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/lfu-cache/" target="_blank" rel="noopener noreferrer">LC 460</a></span>
+                     </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--                  Linked Lists (25 Problems)                  -->
+        <!-- ============================================================ -->
+        <section id="topic-linkedlist" class="topic-section" data-topic="Linked Lists">
+            <h2>Linked Lists (25 Problems)</h2>
+            <!-- Easy (8) -->
+            <div class="difficulty-group easy" data-difficulty="easy">
+                <h3>Easy (8)</h3>
+                <ol class="problem-list" start="71">
+                    <li data-name="Reverse Linked List">
+                        <span class="problem-number">71.</span><span class="problem-name">Reverse Linked List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank" rel="noopener noreferrer">LC 206</a></span>
+                    </li>
+                    <li data-name="Merge Two Sorted Lists">
+                        <span class="problem-number">72.</span><span class="problem-name">Merge Two Sorted Lists</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank" rel="noopener noreferrer">LC 21</a></span>
+                    </li>
+                    <li data-name="Delete Node in a Linked List">
+                        <span class="problem-number">73.</span><span class="problem-name">Delete Node in a Linked List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/delete-node-in-a-linked-list/" target="_blank" rel="noopener noreferrer">LC 237</a></span>
+                    </li>
+                    <li data-name="Linked List Cycle">
+                        <span class="problem-number">74.</span><span class="problem-name">Linked List Cycle</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="noopener noreferrer">LC 141</a></span>
+                    </li>
+                    <li data-name="Intersection of Two Linked Lists">
+                        <span class="problem-number">75.</span><span class="problem-name">Intersection of Two Linked Lists</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener noreferrer">LC 160</a></span>
+                    </li>
+                    <li data-name="Remove Linked List Elements">
+                        <span class="problem-number">76.</span><span class="problem-name">Remove Linked List Elements</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/remove-linked-list-elements/" target="_blank" rel="noopener noreferrer">LC 203</a></span>
+                    </li>
+                    <li data-name="Palindrome Linked List">
+                        <span class="problem-number">77.</span><span class="problem-name">Palindrome Linked List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/palindrome-linked-list/" target="_blank" rel="noopener noreferrer">LC 234</a></span>
+                    </li>
+                    <li data-name="Middle of the Linked List">
+                        <span class="problem-number">78.</span><span class="problem-name">Middle of the Linked List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank" rel="noopener noreferrer">LC 876</a></span>
+                    </li>
+                </ol>
+            </div>
+            <!-- Medium (10) -->
+            <div class="difficulty-group medium" data-difficulty="medium">
+                <h3>Medium (10)</h3>
+                <ol class="problem-list" start="79">
+                    <li data-name="Add Two Numbers">
+                        <span class="problem-number">79.</span><span class="problem-name">Add Two Numbers</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" rel="noopener noreferrer">LC 2</a></span>
+                    </li>
+                    <li data-name="Remove Nth Node From End of List">
+                        <span class="problem-number">80.</span><span class="problem-name">Remove Nth Node From End of List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener noreferrer">LC 19</a></span>
+                    </li>
+                    <li data-name="Linked List Cycle II">
+                        <span class="problem-number">81.</span><span class="problem-name">Linked List Cycle II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener noreferrer">LC 142</a></span>
+                    </li>
+                    <li data-name="Reorder List">
+                        <span class="problem-number">82.</span><span class="problem-name">Reorder List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reorder-list/" target="_blank" rel="noopener noreferrer">LC 143</a></span>
+                    </li>
+                    <li data-name="Sort List (Merge Sort)">
+                        <span class="problem-number">83.</span><span class="problem-name">Sort List (Merge Sort)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sort-list/" target="_blank" rel="noopener noreferrer">LC 148</a></span>
+                    </li>
+                    <li data-name="Odd Even Linked List">
+                        <span class="problem-number">84.</span><span class="problem-name">Odd Even Linked List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/odd-even-linked-list/" target="_blank" rel="noopener noreferrer">LC 328</a></span>
+                    </li>
+                    <li data-name="Rotate List">
+                        <span class="problem-number">85.</span><span class="problem-name">Rotate List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/rotate-list/" target="_blank" rel="noopener noreferrer">LC 61</a></span>
+                    </li>
+                    <li data-name="Swap Nodes in Pairs">
+                        <span class="problem-number">86.</span><span class="problem-name">Swap Nodes in Pairs</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/swap-nodes-in-pairs/" target="_blank" rel="noopener noreferrer">LC 24</a></span>
+                    </li>
+                    <li data-name="Partition List">
+                        <span class="problem-number">87.</span><span class="problem-name">Partition List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/partition-list/" target="_blank" rel="noopener noreferrer">LC 86</a></span>
+                    </li>
+                    <li data-name="Copy List with Random Pointer">
+                        <span class="problem-number">88.</span><span class="problem-name">Copy List with Random Pointer</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/copy-list-with-random-pointer/" target="_blank" rel="noopener noreferrer">LC 138</a></span>
+                    </li>
+                </ol>
+            </div>
+            <!-- Hard (5) -->
+            <div class="difficulty-group hard" data-difficulty="hard">
+                <h3>Hard (5)</h3>
+                <ol class="problem-list" start="89">
+                     <li data-name="Reverse Nodes in k-Group">
+                        <span class="problem-number">89.</span><span class="problem-name">Reverse Nodes in k-Group</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener noreferrer">LC 25</a></span>
+                    </li>
+                    <li data-name="Merge k Sorted Lists Heap">
+                        <span class="problem-number">90.</span><span class="problem-name">Merge k Sorted Lists (Heap)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener noreferrer">LC 23</a></span>
+                    </li>
+                    <li data-name="Flatten a Multilevel Doubly Linked List">
+                        <span class="problem-number">91.</span><span class="problem-name">Flatten a Multilevel Doubly Linked List</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/" target="_blank" rel="noopener noreferrer">LC 430</a></span>
+                    </li>
+                    <li data-name="LRU Cache Implementation Detail">
+                        <span class="problem-number">92.</span><span class="problem-name">LRU Cache (Implementation Detail)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener noreferrer">LC 146</a></span>
+                    </li>
+                    <li data-name="Sort List In-place Quick Sort Tricky">
+                        <span class="problem-number">93.</span><span class="problem-name">Sort List (In-place Quick Sort - Tricky)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problemset/all/?search=Sort%20List%20Quick%20Sort" target="_blank" rel="noopener noreferrer">Search</a></span>
+                    </li>
+                </ol>
+            </div>
+            <!-- Ninja (2) -->
+            <div class="difficulty-group ninja" data-difficulty="ninja">
+                <h3>Ninja (2)</h3>
+                <ol class="problem-list" start="94">
+                     <li data-name="Reverse Nodes in k-Group Recursive Iterative variations">
+                        <span class="problem-number">94.</span><span class="problem-name">Reverse Nodes in k-Group (Recursive/Iterative variations)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener noreferrer">LC 25</a></span>
+                    </li>
+                    <li data-name="Linked List Components">
+                        <span class="problem-number">95.</span><span class="problem-name">Linked List Components</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/linked-list-components/" target="_blank" rel="noopener noreferrer">LC 817</a></span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--               Stacks & Queues (20 Problems)                  -->
+        <!-- ============================================================ -->
+        <section id="topic-stackqueue" class="topic-section" data-topic="Stacks & Queues">
+            <h2>Stacks & Queues (20 Problems)</h2>
+             <!-- Easy (6) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                <h3>Easy (6)</h3>
+                <ol class="problem-list" start="96">
+                    <li data-name="Implement Stack using Queues">
+                        <span class="problem-number">96.</span><span class="problem-name">Implement Stack using Queues</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/implement-stack-using-queues/" target="_blank" rel="noopener noreferrer">LC 225</a></span>
+                    </li>
+                    <li data-name="Implement Queue using Stacks">
+                        <span class="problem-number">97.</span><span class="problem-name">Implement Queue using Stacks</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/implement-queue-using-stacks/" target="_blank" rel="noopener noreferrer">LC 232</a></span>
+                    </li>
+                    <li data-name="Valid Parentheses Stack">
+                        <span class="problem-number">98.</span><span class="problem-name">Valid Parentheses (Stack)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="noopener noreferrer">LC 20</a></span>
+                    </li>
+                    <li data-name="Min Stack">
+                        <span class="problem-number">99.</span><span class="problem-name">Min Stack</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/min-stack/" target="_blank" rel="noopener noreferrer">LC 155</a></span>
+                    </li>
+                    <li data-name="Backspace String Compare">
+                        <span class="problem-number">100.</span><span class="problem-name">Backspace String Compare</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/backspace-string-compare/" target="_blank" rel="noopener noreferrer">LC 844</a></span>
+                    </li>
+                    <li data-name="Next Greater Element I">
+                        <span class="problem-number">101.</span><span class="problem-name">Next Greater Element I</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/next-greater-element-i/" target="_blank" rel="noopener noreferrer">LC 496</a></span>
+                    </li>
+                </ol>
+             </div>
+             <!-- Medium (9) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (9)</h3>
+                 <ol class="problem-list" start="102">
+                    <li data-name="Evaluate Reverse Polish Notation">
+                        <span class="problem-number">102.</span><span class="problem-name">Evaluate Reverse Polish Notation</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/" target="_blank" rel="noopener noreferrer">LC 150</a></span>
+                    </li>
+                    <li data-name="Daily Temperatures">
+                        <span class="problem-number">103.</span><span class="problem-name">Daily Temperatures</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/daily-temperatures/" target="_blank" rel="noopener noreferrer">LC 739</a></span>
+                    </li>
+                    <li data-name="Simplify Path">
+                        <span class="problem-number">104.</span><span class="problem-name">Simplify Path</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/simplify-path/" target="_blank" rel="noopener noreferrer">LC 71</a></span>
+                    </li>
+                    <li data-name="Decode String">
+                        <span class="problem-number">105.</span><span class="problem-name">Decode String</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/decode-string/" target="_blank" rel="noopener noreferrer">LC 394</a></span>
+                    </li>
+                    <li data-name="Basic Calculator">
+                        <span class="problem-number">106.</span><span class="problem-name">Basic Calculator</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/basic-calculator/" target="_blank" rel="noopener noreferrer">LC 224</a></span>
+                    </li>
+                    <li data-name="Next Greater Element II">
+                        <span class="problem-number">107.</span><span class="problem-name">Next Greater Element II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/next-greater-element-ii/" target="_blank" rel="noopener noreferrer">LC 503</a></span>
+                    </li>
+                    <li data-name="Online Stock Span">
+                        <span class="problem-number">108.</span><span class="problem-name">Online Stock Span</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/online-stock-span/" target="_blank" rel="noopener noreferrer">LC 901</a></span>
+                    </li>
+                    <li data-name="Implement Circular Queue">
+                        <span class="problem-number">109.</span><span class="problem-name">Implement Circular Queue</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/design-circular-queue/" target="_blank" rel="noopener noreferrer">LC 622</a></span>
+                    </li>
+                    <li data-name="Validate Stack Sequences">
+                        <span class="problem-number">110.</span><span class="problem-name">Validate Stack Sequences</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank" rel="noopener noreferrer">LC 946</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (4) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (4)</h3>
+                 <ol class="problem-list" start="111">
+                    <li data-name="Largest Rectangle in Histogram Stack">
+                        <span class="problem-number">111.</span><span class="problem-name">Largest Rectangle in Histogram (Stack)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener noreferrer">LC 84</a></span>
+                    </li>
+                    <li data-name="Sliding Window Maximum Deque">
+                        <span class="problem-number">112.</span><span class="problem-name">Sliding Window Maximum (Deque)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sliding-window-maximum/" target="_blank" rel="noopener noreferrer">LC 239</a></span>
+                    </li>
+                    <li data-name="Trapping Rain Water Stack">
+                        <span class="problem-number">113.</span><span class="problem-name">Trapping Rain Water (Stack)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener noreferrer">LC 42</a></span>
+                    </li>
+                    <li data-name="Maximal Rectangle">
+                        <span class="problem-number">114.</span><span class="problem-name">Maximal Rectangle</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximal-rectangle/" target="_blank" rel="noopener noreferrer">LC 85</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (1) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (1)</h3>
+                 <ol class="problem-list" start="115">
+                    <li data-name="Shortest Subarray with Sum at Least K">
+                        <span class="problem-number">115.</span><span class="problem-name">Shortest Subarray with Sum at Least K</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank" rel="noopener noreferrer">LC 862</a></span>
+                    </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--          Recursion & Backtracking (25 Problems)              -->
+        <!-- ============================================================ -->
+        <section id="topic-recursion" class="topic-section" data-topic="Recursion & Backtracking">
+            <h2>Recursion & Backtracking (25 Problems)</h2>
+             <!-- Easy (5) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (5)</h3>
+                 <ol class="problem-list" start="116">
+                    <li data-name="Fibonacci Number Recursive">
+                        <span class="problem-number">116.</span><span class="problem-name">Fibonacci Number (Recursive)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener noreferrer">LC 509</a></span>
+                    </li>
+                    <li data-name="Power of Two Three Four">
+                        <span class="problem-number">117.</span><span class="problem-name">Power of Two/Three/Four</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/power-of-two/" target="_blank" rel="noopener noreferrer">LC 231/326/342</a></span>
+                    </li>
+                    <li data-name="Reverse String Recursive">
+                        <span class="problem-number">118.</span><span class="problem-name">Reverse String (Recursive)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener noreferrer">LC 344</a></span>
+                    </li>
+                    <li data-name="Climbing Stairs Recursive">
+                        <span class="problem-number">119.</span><span class="problem-name">Climbing Stairs (Recursive)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener noreferrer">LC 70</a></span>
+                    </li>
+                    <li data-name="Generate Parentheses Basic">
+                        <span class="problem-number">120.</span><span class="problem-name">Generate Parentheses (Basic n=1,2)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/generate-parentheses/" target="_blank" rel="noopener noreferrer">LC 22</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Medium (15) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (15)</h3>
+                 <ol class="problem-list" start="121">
+                    <li data-name="Generate Parentheses">
+                        <span class="problem-number">121.</span><span class="problem-name">Generate Parentheses</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/generate-parentheses/" target="_blank" rel="noopener noreferrer">LC 22</a></span>
+                    </li>
+                    <li data-name="Subsets">
+                        <span class="problem-number">122.</span><span class="problem-name">Subsets</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/subsets/" target="_blank" rel="noopener noreferrer">LC 78</a></span>
+                    </li>
+                    <li data-name="Subsets II">
+                        <span class="problem-number">123.</span><span class="problem-name">Subsets II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/subsets-ii/" target="_blank" rel="noopener noreferrer">LC 90</a></span>
+                    </li>
+                    <li data-name="Permutations">
+                        <span class="problem-number">124.</span><span class="problem-name">Permutations</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/permutations/" target="_blank" rel="noopener noreferrer">LC 46</a></span>
+                    </li>
+                    <li data-name="Permutations II">
+                        <span class="problem-number">125.</span><span class="problem-name">Permutations II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/permutations-ii/" target="_blank" rel="noopener noreferrer">LC 47</a></span>
+                    </li>
+                    <li data-name="Combination Sum">
+                        <span class="problem-number">126.</span><span class="problem-name">Combination Sum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/combination-sum/" target="_blank" rel="noopener noreferrer">LC 39</a></span>
+                    </li>
+                    <li data-name="Combination Sum II">
+                        <span class="problem-number">127.</span><span class="problem-name">Combination Sum II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/combination-sum-ii/" target="_blank" rel="noopener noreferrer">LC 40</a></span>
+                    </li>
+                    <li data-name="Letter Combinations of a Phone Number">
+                        <span class="problem-number">128.</span><span class="problem-name">Letter Combinations of a Phone Number</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/" target="_blank" rel="noopener noreferrer">LC 17</a></span>
+                    </li>
+                    <li data-name="Word Search Grid">
+                        <span class="problem-number">129.</span><span class="problem-name">Word Search (Grid)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-search/" target="_blank" rel="noopener noreferrer">LC 79</a></span>
+                    </li>
+                    <li data-name="N-Queens">
+                        <span class="problem-number">130.</span><span class="problem-name">N-Queens</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/n-queens/" target="_blank" rel="noopener noreferrer">LC 51</a></span>
+                    </li>
+                    <li data-name="Palindrome Partitioning">
+                        <span class="problem-number">131.</span><span class="problem-name">Palindrome Partitioning</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/palindrome-partitioning/" target="_blank" rel="noopener noreferrer">LC 131</a></span>
+                    </li>
+                    <li data-name="Combinations">
+                        <span class="problem-number">132.</span><span class="problem-name">Combinations</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/combinations/" target="_blank" rel="noopener noreferrer">LC 77</a></span>
+                    </li>
+                    <li data-name="Restore IP Addresses">
+                        <span class="problem-number">133.</span><span class="problem-name">Restore IP Addresses</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/restore-ip-addresses/" target="_blank" rel="noopener noreferrer">LC 93</a></span>
+                    </li>
+                    <li data-name="Beautiful Arrangement">
+                        <span class="problem-number">134.</span><span class="problem-name">Beautiful Arrangement</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/beautiful-arrangement/" target="_blank" rel="noopener noreferrer">LC 526</a></span>
+                    </li>
+                    <li data-name="Sudoku Solver">
+                        <span class="problem-number">135.</span><span class="problem-name">Sudoku Solver</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sudoku-solver/" target="_blank" rel="noopener noreferrer">LC 37</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (4) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (4)</h3>
+                 <ol class="problem-list" start="136">
+                    <li data-name="N-Queens II">
+                        <span class="problem-number">136.</span><span class="problem-name">N-Queens II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/n-queens-ii/" target="_blank" rel="noopener noreferrer">LC 52</a></span>
+                    </li>
+                    <li data-name="Word Break II">
+                        <span class="problem-number">137.</span><span class="problem-name">Word Break II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-break-ii/" target="_blank" rel="noopener noreferrer">LC 140</a></span>
+                    </li>
+                    <li data-name="Expression Add Operators">
+                        <span class="problem-number">138.</span><span class="problem-name">Expression Add Operators</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/expression-add-operators/" target="_blank" rel="noopener noreferrer">LC 282</a></span>
+                    </li>
+                    <li data-name="Remove Invalid Parentheses">
+                        <span class="problem-number">139.</span><span class="problem-name">Remove Invalid Parentheses</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/remove-invalid-parentheses/" target="_blank" rel="noopener noreferrer">LC 301</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (1) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (1)</h3>
+                 <ol class="problem-list" start="140">
+                    <li data-name="Optimal Account Balancing">
+                        <span class="problem-number">140.</span><span class="problem-name">Optimal Account Balancing</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank" rel="noopener noreferrer">LC 465</a></span>
+                    </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--                      Trees (45 Problems)                     -->
+        <!-- ============================================================ -->
+        <section id="topic-trees" class="topic-section" data-topic="Trees">
+            <h2>Trees (Binary, BST, Generic) (45 Problems)</h2>
+            <!-- Easy (10) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (10)</h3>
+                 <ol class="problem-list" start="141">
+                    <li data-name="Binary Tree Preorder Traversal">
+                        <span class="problem-number">141.</span><span class="problem-name">Binary Tree Preorder Traversal</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">LC 144</a></span>
+                    </li>
+                    <li data-name="Binary Tree Inorder Traversal">
+                        <span class="problem-number">142.</span><span class="problem-name">Binary Tree Inorder Traversal</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">LC 94</a></span>
+                    </li>
+                    <li data-name="Binary Tree Postorder Traversal">
+                        <span class="problem-number">143.</span><span class="problem-name">Binary Tree Postorder Traversal</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">LC 145</a></span>
+                    </li>
+                    <li data-name="Maximum Depth of Binary Tree">
+                        <span class="problem-number">144.</span><span class="problem-name">Maximum Depth of Binary Tree</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">LC 104</a></span>
+                    </li>
+                    <li data-name="Same Tree">
+                        <span class="problem-number">145.</span><span class="problem-name">Same Tree</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/same-tree/" target="_blank" rel="noopener noreferrer">LC 100</a></span>
+                    </li>
+                    <li data-name="Symmetric Tree">
+                        <span class="problem-number">146.</span><span class="problem-name">Symmetric Tree</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">LC 101</a></span>
+                    </li>
+                    <li data-name="Invert Binary Tree">
+                        <span class="problem-number">147.</span><span class="problem-name">Invert Binary Tree</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">LC 226</a></span>
+                    </li>
+                    <li data-name="Path Sum">
+                        <span class="problem-number">148.</span><span class="problem-name">Path Sum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/path-sum/" target="_blank" rel="noopener noreferrer">LC 112</a></span>
+                    </li>
+                    <li data-name="Minimum Depth of Binary Tree">
+                        <span class="problem-number">149.</span><span class="problem-name">Minimum Depth of Binary Tree</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">LC 111</a></span>
+                    </li>
+                    <li data-name="Convert Sorted Array to Binary Search Tree BST">
+                        <span class="problem-number">150.</span><span class="problem-name">Convert Sorted Array to Binary Search Tree (BST)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/" target="_blank" rel="noopener noreferrer">LC 108</a></span>
+                    </li>
+                 </ol>
+             </div>
+            <!-- Medium (20) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (20)</h3>
+                 <ol class="problem-list" start="151">
+                     <li data-name="Binary Tree Level Order Traversal">
+                         <span class="problem-number">151.</span><span class="problem-name">Binary Tree Level Order Traversal</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener noreferrer">LC 102</a></span>
+                     </li>
+                     <li data-name="Validate Binary Search Tree BST">
+                         <span class="problem-number">152.</span><span class="problem-name">Validate Binary Search Tree (BST)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">LC 98</a></span>
+                     </li>
+                     <li data-name="Lowest Common Ancestor LCA of a BST">
+                         <span class="problem-number">153.</span><span class="problem-name">Lowest Common Ancestor (LCA) of a BST</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank" rel="noopener noreferrer">LC 235</a></span>
+                     </li>
+                     <li data-name="Lowest Common Ancestor LCA of a Binary Tree">
+                         <span class="problem-number">154.</span><span class="problem-name">Lowest Common Ancestor (LCA) of a Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">LC 236</a></span>
+                     </li>
+                     <li data-name="Binary Tree Right Side View">
+                         <span class="problem-number">155.</span><span class="problem-name">Binary Tree Right Side View</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-right-side-view/" target="_blank" rel="noopener noreferrer">LC 199</a></span>
+                     </li>
+                     <li data-name="Construct Binary Tree from Preorder and Inorder Traversal">
+                         <span class="problem-number">156.</span><span class="problem-name">Construct Binary Tree from Preorder and Inorder Traversal</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" target="_blank" rel="noopener noreferrer">LC 105</a></span>
+                     </li>
+                     <li data-name="Construct Binary Tree from Inorder and Postorder Traversal">
+                         <span class="problem-number">157.</span><span class="problem-name">Construct Binary Tree from Inorder and Postorder Traversal</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="noopener noreferrer">LC 106</a></span>
+                     </li>
+                     <li data-name="Populating Next Right Pointers in Each Node">
+                         <span class="problem-number">158.</span><span class="problem-name">Populating Next Right Pointers in Each Node</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/populating-next-right-pointers-in-each-node/" target="_blank" rel="noopener noreferrer">LC 116</a></span>
+                     </li>
+                     <li data-name="Populating Next Right Pointers in Each Node II">
+                         <span class="problem-number">159.</span><span class="problem-name">Populating Next Right Pointers in Each Node II</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/" target="_blank" rel="noopener noreferrer">LC 117</a></span>
+                     </li>
+                     <li data-name="Kth Smallest Element in a BST">
+                         <span class="problem-number">160.</span><span class="problem-name">Kth Smallest Element in a BST</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener noreferrer">LC 230</a></span>
+                     </li>
+                     <li data-name="Binary Search Tree Iterator">
+                         <span class="problem-number">161.</span><span class="problem-name">Binary Search Tree Iterator</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/binary-search-tree-iterator/" target="_blank" rel="noopener noreferrer">LC 173</a></span>
+                     </li>
+                     <li data-name="Count Complete Tree Nodes">
+                         <span class="problem-number">162.</span><span class="problem-name">Count Complete Tree Nodes</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/count-complete-tree-nodes/" target="_blank" rel="noopener noreferrer">LC 222</a></span>
+                     </li>
+                     <li data-name="Serialize and Deserialize Binary Tree">
+                         <span class="problem-number">163.</span><span class="problem-name">Serialize and Deserialize Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/" target="_blank" rel="noopener noreferrer">LC 297</a></span>
+                     </li>
+                     <li data-name="Binary Tree Zigzag Level Order Traversal">
+                         <span class="problem-number">164.</span><span class="problem-name">Binary Tree Zigzag Level Order Traversal</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/" target="_blank" rel="noopener noreferrer">LC 103</a></span>
+                     </li>
+                     <li data-name="Path Sum II">
+                         <span class="problem-number">165.</span><span class="problem-name">Path Sum II</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/path-sum-ii/" target="_blank" rel="noopener noreferrer">LC 113</a></span>
+                     </li>
+                     <li data-name="Flatten Binary Tree to Linked List">
+                         <span class="problem-number">166.</span><span class="problem-name">Flatten Binary Tree to Linked List</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener noreferrer">LC 114</a></span>
+                     </li>
+                     <li data-name="Sum Root to Leaf Numbers">
+                         <span class="problem-number">167.</span><span class="problem-name">Sum Root to Leaf Numbers</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/sum-root-to-leaf-numbers/" target="_blank" rel="noopener noreferrer">LC 129</a></span>
+                     </li>
+                     <li data-name="Delete Node in a BST">
+                         <span class="problem-number">168.</span><span class="problem-name">Delete Node in a BST</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/delete-node-in-a-bst/" target="_blank" rel="noopener noreferrer">LC 450</a></span>
+                     </li>
+                     <li data-name="Find Duplicate Subtrees">
+                         <span class="problem-number">169.</span><span class="problem-name">Find Duplicate Subtrees</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/find-duplicate-subtrees/" target="_blank" rel="noopener noreferrer">LC 652</a></span>
+                     </li>
+                     <li data-name="Maximum Width of Binary Tree">
+                         <span class="problem-number">170.</span><span class="problem-name">Maximum Width of Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/maximum-width-of-binary-tree/" target="_blank" rel="noopener noreferrer">LC 662</a></span>
+                     </li>
+                 </ol>
+             </div>
+             <!-- Hard (10) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (10)</h3>
+                 <ol class="problem-list" start="171">
+                     <li data-name="Binary Tree Maximum Path Sum">
+                         <span class="problem-number">171.</span><span class="problem-name">Binary Tree Maximum Path Sum</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank" rel="noopener noreferrer">LC 124</a></span>
+                     </li>
+                     <li data-name="Recover Binary Search Tree">
+                         <span class="problem-number">172.</span><span class="problem-name">Recover Binary Search Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/recover-binary-search-tree/" target="_blank" rel="noopener noreferrer">LC 99</a></span>
+                     </li>
+                     <li data-name="Serialize and Deserialize N-ary Tree">
+                         <span class="problem-number">173.</span><span class="problem-name">Serialize and Deserialize N-ary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/" target="_blank" rel="noopener noreferrer">LC 428</a></span>
+                     </li>
+                     <li data-name="Balanced Binary Tree">
+                         <span class="problem-number">174.</span><span class="problem-name">Balanced Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">LC 110</a></span>
+                     </li>
+                     <li data-name="Unique Binary Search Trees">
+                         <span class="problem-number">175.</span><span class="problem-name">Unique Binary Search Trees</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/unique-binary-search-trees/" target="_blank" rel="noopener noreferrer">LC 96</a></span>
+                     </li>
+                     <li data-name="Unique Binary Search Trees II">
+                         <span class="problem-number">176.</span><span class="problem-name">Unique Binary Search Trees II</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/unique-binary-search-trees-ii/" target="_blank" rel="noopener noreferrer">LC 95</a></span>
+                     </li>
+                     <li data-name="Vertical Order Traversal of a Binary Tree">
+                         <span class="problem-number">177.</span><span class="problem-name">Vertical Order Traversal of a Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">LC 987</a></span>
+                     </li>
+                     <li data-name="House Robber III">
+                         <span class="problem-number">178.</span><span class="problem-name">House Robber III</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/house-robber-iii/" target="_blank" rel="noopener noreferrer">LC 337</a></span>
+                     </li>
+                     <li data-name="Closest Binary Search Tree Value II">
+                         <span class="problem-number">179.</span><span class="problem-name">Closest Binary Search Tree Value II</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/closest-binary-search-tree-value-ii/" target="_blank" rel="noopener noreferrer">LC 272</a></span>
+                     </li>
+                     <li data-name="All Nodes Distance K in Binary Tree">
+                         <span class="problem-number">180.</span><span class="problem-name">All Nodes Distance K in Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/" target="_blank" rel="noopener noreferrer">LC 863</a></span>
+                     </li>
+                 </ol>
+             </div>
+             <!-- Ninja (5) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (5)</h3>
+                 <ol class="problem-list" start="181">
+                     <li data-name="Serialize and Deserialize BST">
+                         <span class="problem-number">181.</span><span class="problem-name">Serialize and Deserialize BST</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/serialize-and-deserialize-bst/" target="_blank" rel="noopener noreferrer">LC 449</a></span>
+                     </li>
+                     <li data-name="Morris Traversal Inorder Preorder">
+                         <span class="problem-number">182.</span><span class="problem-name">Morris Traversal (Inorder, Preorder)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problemset/all/?search=Morris%20Traversal" target="_blank" rel="noopener noreferrer">Search</a></span>
+                     </li>
+                     <li data-name="Convert BST to Greater Sum Tree">
+                         <span class="problem-number">183.</span><span class="problem-name">Convert BST to Greater Sum Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/convert-bst-to-greater-tree/" target="_blank" rel="noopener noreferrer">LC 538/1038</a></span>
+                     </li>
+                     <li data-name="Maximum Sum BST in Binary Tree">
+                         <span class="problem-number">184.</span><span class="problem-name">Maximum Sum BST in Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/" target="_blank" rel="noopener noreferrer">LC 1373</a></span>
+                     </li>
+                     <li data-name="Verify Preorder Serialization of a Binary Tree">
+                         <span class="problem-number">185.</span><span class="problem-name">Verify Preorder Serialization of a Binary Tree</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">LC 331</a></span>
+                     </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--          Heaps / Priority Queues (15 Problems)               -->
+        <!-- ============================================================ -->
+        <section id="topic-heaps" class="topic-section" data-topic="Heaps">
+            <h2>Heaps / Priority Queues (15 Problems)</h2>
+             <!-- Easy (3) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (3)</h3>
+                 <ol class="problem-list" start="186">
+                    <li data-name="Kth Largest Element in a Stream">
+                        <span class="problem-number">186.</span><span class="problem-name">Kth Largest Element in a Stream</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/kth-largest-element-in-a-stream/" target="_blank" rel="noopener noreferrer">LC 703</a></span>
+                    </li>
+                    <li data-name="Last Stone Weight">
+                        <span class="problem-number">187.</span><span class="problem-name">Last Stone Weight</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/last-stone-weight/" target="_blank" rel="noopener noreferrer">LC 1046</a></span>
+                    </li>
+                    <li data-name="Relative Ranks">
+                        <span class="problem-number">188.</span><span class="problem-name">Relative Ranks</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/relative-ranks/" target="_blank" rel="noopener noreferrer">LC 506</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Medium (8) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (8)</h3>
+                 <ol class="problem-list" start="189">
+                    <li data-name="Top K Frequent Elements Heap">
+                        <span class="problem-number">189.</span><span class="problem-name">Top K Frequent Elements (Heap)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener noreferrer">LC 347</a></span>
+                    </li>
+                    <li data-name="Kth Largest Element in an Array">
+                        <span class="problem-number">190.</span><span class="problem-name">Kth Largest Element in an Array</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener noreferrer">LC 215</a></span>
+                    </li>
+                    <li data-name="Find Median from Data Stream">
+                        <span class="problem-number">191.</span><span class="problem-name">Find Median from Data Stream</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener noreferrer">LC 295</a></span>
+                    </li>
+                    <li data-name="Merge k Sorted Lists Heap">
+                        <span class="problem-number">192.</span><span class="problem-name">Merge k Sorted Lists (Heap)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener noreferrer">LC 23</a></span>
+                    </li>
+                    <li data-name="Sort Characters By Frequency">
+                        <span class="problem-number">193.</span><span class="problem-name">Sort Characters By Frequency</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sort-characters-by-frequency/" target="_blank" rel="noopener noreferrer">LC 451</a></span>
+                    </li>
+                    <li data-name="Meeting Rooms II">
+                        <span class="problem-number">194.</span><span class="problem-name">Meeting Rooms II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank" rel="noopener noreferrer">LC 253</a></span>
+                    </li>
+                    <li data-name="Reorganize String">
+                        <span class="problem-number">195.</span><span class="problem-name">Reorganize String</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reorganize-string/" target="_blank" rel="noopener noreferrer">LC 767</a></span>
+                    </li>
+                    <li data-name="Task Scheduler">
+                        <span class="problem-number">196.</span><span class="problem-name">Task Scheduler</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/task-scheduler/" target="_blank" rel="noopener noreferrer">LC 621</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (3) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (3)</h3>
+                 <ol class="problem-list" start="197">
+                    <li data-name="Sliding Window Median">
+                        <span class="problem-number">197.</span><span class="problem-name">Sliding Window Median</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/sliding-window-median/" target="_blank" rel="noopener noreferrer">LC 480</a></span>
+                    </li>
+                    <li data-name="IPO">
+                        <span class="problem-number">198.</span><span class="problem-name">IPO</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/ipo/" target="_blank" rel="noopener noreferrer">LC 502</a></span>
+                    </li>
+                    <li data-name="Find K Pairs with Smallest Sums">
+                        <span class="problem-number">199.</span><span class="problem-name">Find K Pairs with Smallest Sums</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/" target="_blank" rel="noopener noreferrer">LC 373</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (1) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (1)</h3>
+                 <ol class="problem-list" start="200">
+                    <li data-name="Swim in Rising Water">
+                        <span class="problem-number">200.</span><span class="problem-name">Swim in Rising Water</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/swim-in-rising-water/" target="_blank" rel="noopener noreferrer">LC 778</a></span>
+                    </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--                Greedy Algorithms (15 Problems)               -->
+        <!-- ============================================================ -->
+        <section id="topic-greedy" class="topic-section" data-topic="Greedy">
+             <h2>Greedy Algorithms (15 Problems)</h2>
+             <!-- Easy (4) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (4)</h3>
+                 <ol class="problem-list" start="201">
+                    <li data-name="Best Time to Buy and Sell Stock">
+                        <span class="problem-number">201.</span><span class="problem-name">Best Time to Buy and Sell Stock</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener noreferrer">LC 121</a></span>
+                    </li>
+                    <li data-name="Best Time to Buy and Sell Stock II">
+                        <span class="problem-number">202.</span><span class="problem-name">Best Time to Buy and Sell Stock II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener noreferrer">LC 122</a></span>
+                    </li>
+                    <li data-name="Assign Cookies">
+                        <span class="problem-number">203.</span><span class="problem-name">Assign Cookies</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/assign-cookies/" target="_blank" rel="noopener noreferrer">LC 455</a></span>
+                    </li>
+                    <li data-name="Lemonade Change">
+                        <span class="problem-number">204.</span><span class="problem-name">Lemonade Change</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/lemonade-change/" target="_blank" rel="noopener noreferrer">LC 860</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Medium (7) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (7)</h3>
+                 <ol class="problem-list" start="205">
+                    <li data-name="Jump Game Greedy">
+                        <span class="problem-number">205.</span><span class="problem-name">Jump Game</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/jump-game/" target="_blank" rel="noopener noreferrer">LC 55</a></span>
+                    </li>
+                    <li data-name="Jump Game II">
+                        <span class="problem-number">206.</span><span class="problem-name">Jump Game II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/jump-game-ii/" target="_blank" rel="noopener noreferrer">LC 45</a></span>
+                    </li>
+                    <li data-name="Gas Station Greedy">
+                        <span class="problem-number">207.</span><span class="problem-name">Gas Station</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/gas-station/" target="_blank" rel="noopener noreferrer">LC 134</a></span>
+                    </li>
+                    <li data-name="Partition Labels">
+                        <span class="problem-number">208.</span><span class="problem-name">Partition Labels</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/partition-labels/" target="_blank" rel="noopener noreferrer">LC 763</a></span>
+                    </li>
+                    <li data-name="Non-overlapping Intervals">
+                        <span class="problem-number">209.</span><span class="problem-name">Non-overlapping Intervals</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/non-overlapping-intervals/" target="_blank" rel="noopener noreferrer">LC 435</a></span>
+                    </li>
+                    <li data-name="Queue Reconstruction by Height">
+                        <span class="problem-number">210.</span><span class="problem-name">Queue Reconstruction by Height</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/queue-reconstruction-by-height/" target="_blank" rel="noopener noreferrer">LC 406</a></span>
+                    </li>
+                    <li data-name="Minimum Number of Arrows to Burst Balloons">
+                        <span class="problem-number">211.</span><span class="problem-name">Minimum Number of Arrows to Burst Balloons</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/" target="_blank" rel="noopener noreferrer">LC 452</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (3) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (3)</h3>
+                 <ol class="problem-list" start="212">
+                    <li data-name="Candy Greedy">
+                         <span class="problem-number">212.</span><span class="problem-name">Candy</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/candy/" target="_blank" rel="noopener noreferrer">LC 135</a></span>
+                    </li>
+                    <li data-name="Task Scheduler Greedy">
+                        <span class="problem-number">213.</span><span class="problem-name">Task Scheduler (Greedy Analysis)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/task-scheduler/" target="_blank" rel="noopener noreferrer">LC 621</a></span>
+                    </li>
+                    <li data-name="Remove K Digits">
+                        <span class="problem-number">214.</span><span class="problem-name">Remove K Digits</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/remove-k-digits/" target="_blank" rel="noopener noreferrer">LC 402</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (1) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (1)</h3>
+                 <ol class="problem-list" start="215">
+                    <li data-name="Patching Array Greedy">
+                         <span class="problem-number">215.</span><span class="problem-name">Patching Array (Greedy)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/patching-array/" target="_blank" rel="noopener noreferrer">LC 330</a></span>
+                    </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--            Dynamic Programming (DP) (40 Problems)            -->
+        <!-- ============================================================ -->
+        <section id="topic-dp" class="topic-section" data-topic="DP">
+             <h2>Dynamic Programming (DP) (40 Problems)</h2>
+             <!-- Easy (7) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (7)</h3>
+                 <ol class="problem-list" start="216">
+                    <li data-name="Climbing Stairs DP">
+                         <span class="problem-number">216.</span><span class="problem-name">Climbing Stairs</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener noreferrer">LC 70</a></span>
+                    </li>
+                    <li data-name="Fibonacci Number DP">
+                         <span class="problem-number">217.</span><span class="problem-name">Fibonacci Number (DP)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener noreferrer">LC 509</a></span>
+                    </li>
+                    <li data-name="Min Cost Climbing Stairs">
+                         <span class="problem-number">218.</span><span class="problem-name">Min Cost Climbing Stairs</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener noreferrer">LC 746</a></span>
+                    </li>
+                    <li data-name="House Robber">
+                         <span class="problem-number">219.</span><span class="problem-name">House Robber</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/house-robber/" target="_blank" rel="noopener noreferrer">LC 198</a></span>
+                    </li>
+                    <li data-name="Maximum Subarray DP">
+                         <span class="problem-number">220.</span><span class="problem-name">Maximum Subarray (DP)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" rel="noopener noreferrer">LC 53</a></span>
+                    </li>
+                    <li data-name="Best Time to Buy and Sell Stock DP state">
+                         <span class="problem-number">221.</span><span class="problem-name">Best Time to Buy and Sell Stock (DP state)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener noreferrer">LC 121</a></span>
+                    </li>
+                    <li data-name="Divisor Game">
+                         <span class="problem-number">222.</span><span class="problem-name">Divisor Game</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/divisor-game/" target="_blank" rel="noopener noreferrer">LC 1025</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Medium (20) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (20)</h3>
+                 <ol class="problem-list" start="223">
+                    <li data-name="Unique Paths">
+                        <span class="problem-number">223.</span><span class="problem-name">Unique Paths</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/unique-paths/" target="_blank" rel="noopener noreferrer">LC 62</a></span>
+                    </li>
+                    <li data-name="Unique Paths II">
+                        <span class="problem-number">224.</span><span class="problem-name">Unique Paths II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/unique-paths-ii/" target="_blank" rel="noopener noreferrer">LC 63</a></span>
+                    </li>
+                    <li data-name="Minimum Path Sum">
+                        <span class="problem-number">225.</span><span class="problem-name">Minimum Path Sum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/minimum-path-sum/" target="_blank" rel="noopener noreferrer">LC 64</a></span>
+                    </li>
+                    <li data-name="Coin Change">
+                        <span class="problem-number">226.</span><span class="problem-name">Coin Change</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/coin-change/" target="_blank" rel="noopener noreferrer">LC 322</a></span>
+                    </li>
+                    <li data-name="Longest Increasing Subsequence LIS">
+                        <span class="problem-number">227.</span><span class="problem-name">Longest Increasing Subsequence (LIS)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener noreferrer">LC 300</a></span>
+                    </li>
+                    <li data-name="Longest Common Subsequence LCS">
+                        <span class="problem-number">228.</span><span class="problem-name">Longest Common Subsequence (LCS)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-common-subsequence/" target="_blank" rel="noopener noreferrer">LC 1143</a></span>
+                    </li>
+                    <li data-name="Edit Distance">
+                        <span class="problem-number">229.</span><span class="problem-name">Edit Distance</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/edit-distance/" target="_blank" rel="noopener noreferrer">LC 72</a></span>
+                    </li>
+                    <li data-name="Word Break">
+                        <span class="problem-number">230.</span><span class="problem-name">Word Break</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-break/" target="_blank" rel="noopener noreferrer">LC 139</a></span>
+                    </li>
+                    <li data-name="House Robber II">
+                        <span class="problem-number">231.</span><span class="problem-name">House Robber II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/house-robber-ii/" target="_blank" rel="noopener noreferrer">LC 213</a></span>
+                    </li>
+                    <li data-name="Decode Ways">
+                        <span class="problem-number">232.</span><span class="problem-name">Decode Ways</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/decode-ways/" target="_blank" rel="noopener noreferrer">LC 91</a></span>
+                    </li>
+                    <li data-name="Triangle">
+                        <span class="problem-number">233.</span><span class="problem-name">Triangle</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/triangle/" target="_blank" rel="noopener noreferrer">LC 120</a></span>
+                    </li>
+                    <li data-name="Maximum Product Subarray DP">
+                        <span class="problem-number">234.</span><span class="problem-name">Maximum Product Subarray (DP)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank" rel="noopener noreferrer">LC 152</a></span>
+                    </li>
+                    <li data-name="Coin Change 2">
+                        <span class="problem-number">235.</span><span class="problem-name">Coin Change 2</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/coin-change-2/" target="_blank" rel="noopener noreferrer">LC 518</a></span>
+                    </li>
+                    <li data-name="Target Sum">
+                        <span class="problem-number">236.</span><span class="problem-name">Target Sum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/target-sum/" target="_blank" rel="noopener noreferrer">LC 494</a></span>
+                    </li>
+                    <li data-name="Partition Equal Subset Sum">
+                        <span class="problem-number">237.</span><span class="problem-name">Partition Equal Subset Sum</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/partition-equal-subset-sum/" target="_blank" rel="noopener noreferrer">LC 416</a></span>
+                    </li>
+                    <li data-name="Perfect Squares">
+                        <span class="problem-number">238.</span><span class="problem-name">Perfect Squares</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/perfect-squares/" target="_blank" rel="noopener noreferrer">LC 279</a></span>
+                    </li>
+                    <li data-name="Integer Break">
+                        <span class="problem-number">239.</span><span class="problem-name">Integer Break</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/integer-break/" target="_blank" rel="noopener noreferrer">LC 343</a></span>
+                    </li>
+                    <li data-name="Palindromic Substrings">
+                        <span class="problem-number">240.</span><span class="problem-name">Palindromic Substrings</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/palindromic-substrings/" target="_blank" rel="noopener noreferrer">LC 647</a></span>
+                    </li>
+                    <li data-name="Knight Dialer">
+                        <span class="problem-number">241.</span><span class="problem-name">Knight Dialer</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/knight-dialer/" target="_blank" rel="noopener noreferrer">LC 935</a></span>
+                    </li>
+                    <li data-name="Counting Bits DP">
+                        <span class="problem-number">242.</span><span class="problem-name">Counting Bits</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/counting-bits/" target="_blank" rel="noopener noreferrer">LC 338</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (10) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (10)</h3>
+                 <ol class="problem-list" start="243">
+                    <li data-name="Burst Balloons">
+                        <span class="problem-number">243.</span><span class="problem-name">Burst Balloons</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/burst-balloons/" target="_blank" rel="noopener noreferrer">LC 312</a></span>
+                    </li>
+                    <li data-name="Maximal Square">
+                        <span class="problem-number">244.</span><span class="problem-name">Maximal Square</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximal-square/" target="_blank" rel="noopener noreferrer">LC 221</a></span>
+                    </li>
+                    <li data-name="Best Time to Buy and Sell Stock III IV DP">
+                        <span class="problem-number">245.</span><span class="problem-name">Best Time to Buy and Sell Stock III/IV (DP)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener noreferrer">LC 123/188</a></span>
+                    </li>
+                    <li data-name="Regular Expression Matching DP">
+                        <span class="problem-number">246.</span><span class="problem-name">Regular Expression Matching (DP)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/regular-expression-matching/" target="_blank" rel="noopener noreferrer">LC 10</a></span>
+                    </li>
+                    <li data-name="Wildcard Matching DP">
+                        <span class="problem-number">247.</span><span class="problem-name">Wildcard Matching (DP)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/wildcard-matching/" target="_blank" rel="noopener noreferrer">LC 44</a></span>
+                    </li>
+                    <li data-name="Distinct Subsequences">
+                        <span class="problem-number">248.</span><span class="problem-name">Distinct Subsequences</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/distinct-subsequences/" target="_blank" rel="noopener noreferrer">LC 115</a></span>
+                    </li>
+                    <li data-name="Minimum Difficulty of a Job Schedule">
+                        <span class="problem-number">249.</span><span class="problem-name">Minimum Difficulty of a Job Schedule</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/" target="_blank" rel="noopener noreferrer">LC 1335</a></span>
+                    </li>
+                    <li data-name="Longest Palindromic Subsequence">
+                        <span class="problem-number">250.</span><span class="problem-name">Longest Palindromic Subsequence</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-palindromic-subsequence/" target="_blank" rel="noopener noreferrer">LC 516</a></span>
+                    </li>
+                    <li data-name="Student Attendance Record II">
+                        <span class="problem-number">251.</span><span class="problem-name">Student Attendance Record II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/student-attendance-record-ii/" target="_blank" rel="noopener noreferrer">LC 552</a></span>
+                    </li>
+                    <li data-name="Number of Ways to Form a Target String Given a Dictionary">
+                        <span class="problem-number">252.</span><span class="problem-name">Number of Ways to Form a Target String Given a Dictionary</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/number-of-ways-to-form-a-target-string-given-a-dictionary/" target="_blank" rel="noopener noreferrer">LC 1639</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (3) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (3)</h3>
+                 <ol class="problem-list" start="253">
+                    <li data-name="Frog Jump">
+                        <span class="problem-number">253.</span><span class="problem-name">Frog Jump</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/frog-jump/" target="_blank" rel="noopener noreferrer">LC 403</a></span>
+                    </li>
+                    <li data-name="Longest Increasing Path in a Matrix">
+                        <span class="problem-number">254.</span><span class="problem-name">Longest Increasing Path in a Matrix</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" target="_blank" rel="noopener noreferrer">LC 329</a></span>
+                    </li>
+                    <li data-name="Strange Printer">
+                        <span class="problem-number">255.</span><span class="problem-name">Strange Printer</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/strange-printer/" target="_blank" rel="noopener noreferrer">LC 664</a></span>
+                    </li>
+                 </ol>
+             </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--                     Graphs (30 Problems)                     -->
+        <!-- ============================================================ -->
+        <section id="topic-graphs" class="topic-section" data-topic="Graphs">
+            <h2>Graphs (30 Problems)</h2>
+            <!-- Easy (5) -->
+            <div class="difficulty-group easy" data-difficulty="easy">
+                <h3>Easy (5)</h3>
+                <ol class="problem-list" start="256">
+                    <li data-name="Find if Path Exists in Graph">
+                        <span class="problem-number">256.</span><span class="problem-name">Find if Path Exists in Graph</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-if-path-exists-in-graph/" target="_blank" rel="noopener noreferrer">LC 1971</a></span>
+                    </li>
+                    <li data-name="Find the Town Judge">
+                        <span class="problem-number">257.</span><span class="problem-name">Find the Town Judge</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-the-town-judge/" target="_blank" rel="noopener noreferrer">LC 997</a></span>
+                    </li>
+                    <li data-name="Number of Islands DFS BFS">
+                        <span class="problem-number">258.</span><span class="problem-name">Number of Islands (DFS/BFS)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/number-of-islands/" target="_blank" rel="noopener noreferrer">LC 200</a></span>
+                    </li>
+                    <li data-name="Flood Fill">
+                        <span class="problem-number">259.</span><span class="problem-name">Flood Fill</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/flood-fill/" target="_blank" rel="noopener noreferrer">LC 733</a></span>
+                    </li>
+                    <li data-name="Keys and Rooms">
+                        <span class="problem-number">260.</span><span class="problem-name">Keys and Rooms</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/keys-and-rooms/" target="_blank" rel="noopener noreferrer">LC 841</a></span>
+                    </li>
+                </ol>
+            </div>
+            <!-- Medium (15) -->
+            <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (15)</h3>
+                 <ol class="problem-list" start="261">
+                    <li data-name="Clone Graph">
+                        <span class="problem-number">261.</span><span class="problem-name">Clone Graph</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/clone-graph/" target="_blank" rel="noopener noreferrer">LC 133</a></span>
+                    </li>
+                    <li data-name="Course Schedule">
+                        <span class="problem-number">262.</span><span class="problem-name">Course Schedule</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/course-schedule/" target="_blank" rel="noopener noreferrer">LC 207</a></span>
+                    </li>
+                    <li data-name="Course Schedule II">
+                        <span class="problem-number">263.</span><span class="problem-name">Course Schedule II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/course-schedule-ii/" target="_blank" rel="noopener noreferrer">LC 210</a></span>
+                    </li>
+                    <li data-name="Rotting Oranges">
+                        <span class="problem-number">264.</span><span class="problem-name">Rotting Oranges</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/rotting-oranges/" target="_blank" rel="noopener noreferrer">LC 994</a></span>
+                    </li>
+                    <li data-name="Pacific Atlantic Water Flow">
+                        <span class="problem-number">265.</span><span class="problem-name">Pacific Atlantic Water Flow</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/pacific-atlantic-water-flow/" target="_blank" rel="noopener noreferrer">LC 417</a></span>
+                    </li>
+                    <li data-name="Surrounded Regions">
+                        <span class="problem-number">266.</span><span class="problem-name">Surrounded Regions</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/surrounded-regions/" target="_blank" rel="noopener noreferrer">LC 130</a></span>
+                    </li>
+                    <li data-name="Shortest Path in Binary Matrix">
+                        <span class="problem-number">267.</span><span class="problem-name">Shortest Path in Binary Matrix</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/shortest-path-in-binary-matrix/" target="_blank" rel="noopener noreferrer">LC 1091</a></span>
+                    </li>
+                    <li data-name="Number of Connected Components in an Undirected Graph">
+                        <span class="problem-number">268.</span><span class="problem-name">Number of Connected Components in an Undirected Graph</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/" target="_blank" rel="noopener noreferrer">LC 323</a></span>
+                    </li>
+                    <li data-name="Graph Valid Tree">
+                        <span class="problem-number">269.</span><span class="problem-name">Graph Valid Tree</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/graph-valid-tree/" target="_blank" rel="noopener noreferrer">LC 261</a></span>
+                    </li>
+                    <li data-name="Word Ladder">
+                        <span class="problem-number">270.</span><span class="problem-name">Word Ladder</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-ladder/" target="_blank" rel="noopener noreferrer">LC 127</a></span>
+                    </li>
+                    <li data-name="Network Delay Time Dijkstra">
+                        <span class="problem-number">271.</span><span class="problem-name">Network Delay Time (Dijkstra)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/network-delay-time/" target="_blank" rel="noopener noreferrer">LC 743</a></span>
+                    </li>
+                    <li data-name="Is Graph Bipartite?">
+                        <span class="problem-number">272.</span><span class="problem-name">Is Graph Bipartite?</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/is-graph-bipartite/" target="_blank" rel="noopener noreferrer">LC 785</a></span>
+                    </li>
+                    <li data-name="Cheapest Flights Within K Stops Bellman-Ford Dijkstra variation">
+                        <span class="problem-number">273.</span><span class="problem-name">Cheapest Flights Within K Stops</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/cheapest-flights-within-k-stops/" target="_blank" rel="noopener noreferrer">LC 787</a></span>
+                    </li>
+                    <li data-name="Find the Celebrity">
+                        <span class="problem-number">274.</span><span class="problem-name">Find the Celebrity</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/find-the-celebrity/" target="_blank" rel="noopener noreferrer">LC 277</a></span>
+                    </li>
+                    <li data-name="Minimum Height Trees">
+                        <span class="problem-number">275.</span><span class="problem-name">Minimum Height Trees</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/minimum-height-trees/" target="_blank" rel="noopener noreferrer">LC 310</a></span>
+                    </li>
+                 </ol>
+            </div>
+            <!-- Hard (7) -->
+            <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (7)</h3>
+                 <ol class="problem-list" start="276">
+                    <li data-name="Word Ladder II">
+                        <span class="problem-number">276.</span><span class="problem-name">Word Ladder II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-ladder-ii/" target="_blank" rel="noopener noreferrer">LC 126</a></span>
+                    </li>
+                    <li data-name="Alien Dictionary">
+                        <span class="problem-number">277.</span><span class="problem-name">Alien Dictionary</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/alien-dictionary/" target="_blank" rel="noopener noreferrer">LC 269</a></span>
+                    </li>
+                    <li data-name="Critical Connections in a Network Tarjan's Bridges">
+                        <span class="problem-number">278.</span><span class="problem-name">Critical Connections in a Network (Tarjan's/Bridges)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/critical-connections-in-a-network/" target="_blank" rel="noopener noreferrer">LC 1192</a></span>
+                    </li>
+                    <li data-name="Reconstruct Itinerary">
+                        <span class="problem-number">279.</span><span class="problem-name">Reconstruct Itinerary</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/reconstruct-itinerary/" target="_blank" rel="noopener noreferrer">LC 332</a></span>
+                    </li>
+                    <li data-name="Minimum Spanning Tree Prim's Kruskal's">
+                        <span class="problem-number">280.</span><span class="problem-name">Minimum Spanning Tree (Prim's/Kruskal's)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/min-cost-to-connect-all-points/" target="_blank" rel="noopener noreferrer">LC 1584</a></span> <!-- Example application -->
+                    </li>
+                    <li data-name="Redundant Connection Union-Find">
+                        <span class="problem-number">281.</span><span class="problem-name">Redundant Connection (Union-Find)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/redundant-connection/" target="_blank" rel="noopener noreferrer">LC 684</a></span>
+                    </li>
+                    <li data-name="Number of Operations to Make Network Connected">
+                        <span class="problem-number">282.</span><span class="problem-name">Number of Operations to Make Network Connected</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/number-of-operations-to-make-network-connected/" target="_blank" rel="noopener noreferrer">LC 1319</a></span>
+                    </li>
+                 </ol>
+            </div>
+            <!-- Ninja (3) -->
+            <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (3)</h3>
+                 <ol class="problem-list" start="283">
+                    <li data-name="Shortest Path Visiting All Nodes">
+                        <span class="problem-number">283.</span><span class="problem-name">Shortest Path Visiting All Nodes</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/shortest-path-visiting-all-nodes/" target="_blank" rel="noopener noreferrer">LC 847</a></span>
+                    </li>
+                    <li data-name="Optimize Water Distribution in a Village">
+                        <span class="problem-number">284.</span><span class="problem-name">Optimize Water Distribution in a Village</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/optimize-water-distribution-in-a-village/" target="_blank" rel="noopener noreferrer">LC 1168</a></span>
+                    </li>
+                    <li data-name="Traveling Salesperson Problem Approximation DP">
+                        <span class="problem-number">285.</span><span class="problem-name">Traveling Salesperson Problem (Approx/DP)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problemset/all/?search=Traveling%20Salesperson%20Problem" target="_blank" rel="noopener noreferrer">Search</a></span>
+                    </li>
+                 </ol>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!--               Bit Manipulation (7 Problems)                  -->
+        <!-- ============================================================ -->
+        <section id="topic-bit" class="topic-section" data-topic="Bit Manipulation">
+             <h2>Bit Manipulation (7 Problems)</h2>
+             <!-- Easy (3) -->
+             <div class="difficulty-group easy" data-difficulty="easy">
+                 <h3>Easy (3)</h3>
+                 <ol class="problem-list" start="286">
+                     <li data-name="Number of 1 Bits Hamming Weight">
+                         <span class="problem-number">286.</span><span class="problem-name">Number of 1 Bits (Hamming Weight)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" rel="noopener noreferrer">LC 191</a></span>
+                     </li>
+                     <li data-name="Single Number">
+                         <span class="problem-number">287.</span><span class="problem-name">Single Number</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/single-number/" target="_blank" rel="noopener noreferrer">LC 136</a></span>
+                     </li>
+                     <li data-name="Power of Two Bitwise">
+                         <span class="problem-number">288.</span><span class="problem-name">Power of Two (Bitwise)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/power-of-two/" target="_blank" rel="noopener noreferrer">LC 231</a></span>
+                     </li>
+                 </ol>
+             </div>
+             <!-- Medium (3) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (3)</h3>
+                 <ol class="problem-list" start="289">
+                    <li data-name="Counting Bits Bit Manipulation">
+                        <span class="problem-number">289.</span><span class="problem-name">Counting Bits (Bit Manipulation)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/counting-bits/" target="_blank" rel="noopener noreferrer">LC 338</a></span>
+                    </li>
+                    <li data-name="Single Number II">
+                        <span class="problem-number">290.</span><span class="problem-name">Single Number II</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/single-number-ii/" target="_blank" rel="noopener noreferrer">LC 137</a></span>
+                    </li>
+                    <li data-name="Bitwise AND of Numbers Range">
+                        <span class="problem-number">291.</span><span class="problem-name">Bitwise AND of Numbers Range</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/bitwise-and-of-numbers-range/" target="_blank" rel="noopener noreferrer">LC 201</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (1) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (1)</h3>
+                 <ol class="problem-list" start="292">
+                    <li data-name="Maximum XOR of Two Numbers in an Array Trie">
+                        <span class="problem-number">292.</span><span class="problem-name">Maximum XOR of Two Numbers in an Array (Trie)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/" target="_blank" rel="noopener noreferrer">LC 421</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (0) -->
+        </section>
+
+        <!-- ============================================================ -->
+        <!--                Advanced Topics (7 Problems)                  -->
+        <!-- ============================================================ -->
+        <section id="topic-advanced" class="topic-section" data-topic="Advanced">
+            <h2>Advanced Topics (Tries, Segment Trees, etc.) (7 Problems)</h2>
+             <!-- Medium (Trie - 2) -->
+             <div class="difficulty-group medium" data-difficulty="medium">
+                 <h3>Medium (Trie - 2)</h3>
+                 <ol class="problem-list" start="293">
+                    <li data-name="Implement Trie Prefix Tree">
+                        <span class="problem-number">293.</span><span class="problem-name">Implement Trie (Prefix Tree)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/implement-trie-prefix-tree/" target="_blank" rel="noopener noreferrer">LC 208</a></span>
+                    </li>
+                    <li data-name="Word Search II Trie Backtracking">
+                        <span class="problem-number">294.</span><span class="problem-name">Word Search II (Trie + Backtracking)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/word-search-ii/" target="_blank" rel="noopener noreferrer">LC 212</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Hard (Segment Tree/Fenwick Tree/String - 3) -->
+             <div class="difficulty-group hard" data-difficulty="hard">
+                 <h3>Hard (Segment Tree/Fenwick Tree/String - 3)</h3>
+                 <ol class="problem-list" start="295">
+                    <li data-name="Range Sum Query Mutable Segment Tree Fenwick Tree">
+                        <span class="problem-number">295.</span><span class="problem-name">Range Sum Query - Mutable (Segment/Fenwick Tree)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/range-sum-query-mutable/" target="_blank" rel="noopener noreferrer">LC 307</a></span>
+                    </li>
+                    <li data-name="Count of Smaller Numbers After Self Fenwick Tree Segment Tree">
+                        <span class="problem-number">296.</span><span class="problem-name">Count of Smaller Numbers After Self (Fenwick/Segment Tree)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/count-of-smaller-numbers-after-self/" target="_blank" rel="noopener noreferrer">LC 315</a></span>
+                    </li>
+                    <li data-name="Longest Duplicate Substring Rabin-Karp Suffix Array">
+                        <span class="problem-number">297.</span><span class="problem-name">Longest Duplicate Substring (Rabin-Karp/Suffix Array)</span>
+                        <span class="problem-link"><a href="https://leetcode.com/problems/longest-duplicate-substring/" target="_blank" rel="noopener noreferrer">LC 1044</a></span>
+                    </li>
+                 </ol>
+             </div>
+             <!-- Ninja (KMP/Advanced String/Flow - 2) -->
+             <div class="difficulty-group ninja" data-difficulty="ninja">
+                 <h3>Ninja (KMP/Advanced String/Flow - 2)</h3>
+                 <ol class="problem-list" start="298">
+                     <li data-name="Shortest Palindrome KMP">
+                         <span class="problem-number">298.</span><span class="problem-name">Shortest Palindrome (KMP)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problems/shortest-palindrome/" target="_blank" rel="noopener noreferrer">LC 214</a></span>
+                     </li>
+                     <li data-name="Maximum Flow Ford-Fulkerson Edmonds-Karp">
+                         <span class="problem-number">299.</span><span class="problem-name">Maximum Flow (Ford-Fulkerson / Edmonds-Karp)</span>
+                         <span class="problem-link"><a href="https://leetcode.com/problemset/all/?search=Maximum%20Flow" target="_blank" rel="noopener noreferrer">Search</a></span>
+                     </li>
+                 </ol>
+             </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Built with dedication for the 2026 CSE Placement Aspirants. Keep Coding!</p>
+        <p>&copy; <span id="current-year"></span> <!-- Add Your Name/GitHub Profile Link Here --> </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const difficultyFilter = document.getElementById('difficulty-filter');
+            const problemListContainer = document.getElementById('problem-list');
+            const allProblems = problemListContainer.querySelectorAll('.problem-list li');
+            const allDifficultyGroups = problemListContainer.querySelectorAll('.difficulty-group');
+            const allTopicSections = problemListContainer.querySelectorAll('.topic-section');
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            function filterAndSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const selectedDifficulty = difficultyFilter.value; // 'all', 'easy', 'medium', 'hard', 'ninja'
+
+                let visibleProblemsInPage = 0;
+
+                allTopicSections.forEach(topicSection => {
+                    let visibleProblemsInTopic = 0;
+                    const difficultyGroupsInTopic = topicSection.querySelectorAll('.difficulty-group');
+
+                    difficultyGroupsInTopic.forEach(group => {
+                        let visibleProblemsInGroup = 0;
+                        const problemsInGroup = group.querySelectorAll('.problem-list li');
+                        const groupDifficulty = group.getAttribute('data-difficulty');
+
+                        problemsInGroup.forEach(problem => {
+                            const problemName = problem.getAttribute('data-name').toLowerCase();
+                            const nameMatch = searchTerm === '' || problemName.includes(searchTerm); // Show all if search is empty
+                            const difficultyMatch = (selectedDifficulty === 'all' || groupDifficulty === selectedDifficulty);
+
+                            if (nameMatch && difficultyMatch) {
+                                problem.classList.remove('hidden');
+                                problem.style.maxHeight = '150px'; // Estimate max height needed
+                                visibleProblemsInGroup++;
+                                visibleProblemsInTopic++;
+                                visibleProblemsInPage++;
+                            } else {
+                                problem.classList.add('hidden');
+                                problem.style.maxHeight = '0';
+                            }
+                        });
+
+                        // Hide difficulty group header if no problems within it are visible
+                        if (visibleProblemsInGroup === 0) {
+                            group.classList.add('group-hidden'); // Use specific class to avoid transition issues
+                        } else {
+                            group.classList.remove('group-hidden');
+                        }
+                    });
+
+                     // Hide topic section header if no problems within it are visible
+                     if (visibleProblemsInTopic === 0) {
+                         topicSection.classList.add('topic-hidden');
+                     } else {
+                         topicSection.classList.remove('topic-hidden');
+                     }
+                });
+            }
+
+             // Debounce function to limit filter execution rate
+             let debounceTimer;
+             function debouncedFilterAndSearch() {
+                 clearTimeout(debounceTimer);
+                 debounceTimer = setTimeout(filterAndSearch, 250); // Adjust delay as needed (e.g., 250ms)
+             }
+
+            searchInput.addEventListener('input', debouncedFilterAndSearch);
+            difficultyFilter.addEventListener('change', filterAndSearch); // No need to debounce dropdown change
+
+            // Initialize view on load
+            filterAndSearch();
+        });
+    </script>
+
+</body>
+</html>
